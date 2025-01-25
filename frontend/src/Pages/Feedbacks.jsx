@@ -8,7 +8,7 @@ const FeedbackPage = () => {
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/feedbacks");
+        const response = await fetch("https://thecmdiansofficial1.onrender.com/api/feedbacks");
         const data = await response.json();
         setFeedbacks(data);
       } catch (error) {
@@ -30,7 +30,7 @@ const FeedbackPage = () => {
     e.preventDefault();
     if (formData.name && formData.email && formData.feedback) {
       try {
-        const response = await fetch("http://localhost:5000/api/feedbacks", {
+        const response = await fetch("https://thecmdiansofficial1.onrender.com/api/feedbacks", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const FeedbackPage = () => {
   // Delete Feedback
   const deleteFeedback = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/feedbacks/${id}`, {
+      const response = await fetch(`https://thecmdiansofficial1.onrender.com/api/feedbacks/${id}`, {
         method: "DELETE",
       });
 

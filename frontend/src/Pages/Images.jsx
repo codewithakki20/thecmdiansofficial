@@ -18,7 +18,7 @@ const ImageList = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/images?page=${page}`
+          `https://thecmdiansofficial1.onrender.com/api/images?page=${page}`
         );
         if (isMounted) {
           if (response.data.length === 0) {
@@ -79,7 +79,7 @@ const ImageList = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/images/${deleteId}`
+        `https://thecmdiansofficial1.onrender.com/api/images/${deleteId}`
       );
       if (response.status === 200) {
         showAlert('Image deleted successfully', 'success');
