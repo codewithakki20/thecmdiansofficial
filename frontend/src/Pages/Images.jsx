@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -11,41 +11,47 @@ const ImageList = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchImages = async () => {
+  const fetchImages = useCallback(
+    async (reset = false) => {
       setLoading(true);
       try {
         const response = await axios.get(
           `https://thecmdiansofficial1.onrender.com/api/images?page=${page}`
         );
-        if (isMounted) {
-          if (response.data.length === 0) {
-            setHasMore(false);
-          } else {
-            setImages((prevImages) => [...prevImages, ...response.data]);
-          }
+        if (response.data.length === 0) {
+          setHasMore(false);
+        } else {
+          setImages((prevImages) => (reset ? [...response.data] : [...prevImages, ...response.data]));
         }
       } catch (err) {
-        if (isMounted) {
-          setError('Error fetching images');
-          showAlert('Error fetching images', 'error');
-        }
-        console.error('Error fetching images', err);
+        setError('Error fetching images');
+        showAlert('Error fetching images', 'error');
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
+      }
+    },
+    [page]
+  );
+
+  useEffect(() => {
+    fetchImages(true);
+  }, [fetchImages]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop >=
+          document.documentElement.offsetHeight - 50 &&
+        hasMore &&
+        !loading
+      ) {
+        setPage((prevPage) => prevPage + 1);
       }
     };
 
-    fetchImages();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [page]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasMore, loading]);
 
   const showAlert = (message, type) => {
     setAlert({ message, type });
@@ -63,18 +69,12 @@ const ImageList = () => {
       URL.revokeObjectURL(link.href);
       showAlert('File downloaded successfully', 'success');
     } catch (err) {
-      console.error('Error downloading file:', err);
       showAlert('Error downloading file. Please try again later.', 'error');
     }
   };
 
-  const confirmDelete = (id) => {
-    setDeleteId(id);
-  };
-
-  const cancelDelete = () => {
-    setDeleteId(null);
-  };
+  const confirmDelete = (id) => setDeleteId(id);
+  const cancelDelete = () => setDeleteId(null);
 
   const handleDelete = async () => {
     try {
@@ -84,11 +84,8 @@ const ImageList = () => {
       if (response.status === 200) {
         showAlert('Image deleted successfully', 'success');
         setImages((prevImages) => prevImages.filter((img) => img._id !== deleteId));
-      } else {
-        throw new Error('Failed to delete image');
       }
     } catch (err) {
-      console.error('Error deleting image', err);
       showAlert('Error deleting image', 'error');
     } finally {
       setDeleteId(null);
@@ -106,13 +103,10 @@ const ImageList = () => {
   return (
     <section className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] text-white p-8 min-h-screen">
       {alert && (
-        <div
-          className={`alert ${alert.type === 'error' ? 'bg-red-500' : 'bg-green-500'} text-white p-4 mb-4 text-center rounded`}
-        >
+        <div className={`alert ${alert.type === 'error' ? 'bg-red-500' : 'bg-green-500'} text-white p-4 mb-4 text-center rounded`}>
           {alert.message}
         </div>
       )}
-
       <h2 className="text-3xl font-bold mb-8 text-center">Uploaded Images</h2>
 
       {loading && (
@@ -126,18 +120,14 @@ const ImageList = () => {
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {images.map((image) => (
           <li key={image._id} className="bg-white bg-opacity-80 p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            {/* Image Section */}
             <div
               className="w-full h-48 bg-cover bg-center rounded-lg mb-4"
               style={{ backgroundImage: `url(${image.url})` }}
+              aria-label={image.title || 'Image'}
             ></div>
-
-            {/* Title Section */}
             <h3 className="text-lg font-bold text-gray-700 text-center mb-4">
-              {image.title || "Untitled"}
+              {image.title || 'Untitled'}
             </h3>
-
-            {/* Buttons */}
             <div className="flex justify-between">
               <button
                 onClick={() => handleDownload(image.url, image.title)}
@@ -178,14 +168,12 @@ const ImageList = () => {
         </div>
       )}
 
-      {!loading && hasMore && (
-        <button
-          onClick={() => setPage((prevPage) => prevPage + 1)}
-          className="mt-8 bg-gradient-to-r from-[#7C295D] to-purple-600 hover:from-[#7C295D] hover:to-purple-700 text-white font-bold py-2 px-4 rounded block mx-auto"
-        >
-          Load More
-        </button>
+      {loading && (
+        <div className="flex justify-center items-center mt-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-white"></div>
+        </div>
       )}
+
       {!hasMore && <p className="text-center mt-8">No more images to load.</p>}
     </section>
   );

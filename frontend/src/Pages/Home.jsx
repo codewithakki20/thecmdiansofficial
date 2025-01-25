@@ -56,6 +56,8 @@ const HomePage = () => {
     { name: "John Doe", role: "Event Coordinator" },
     { name: "Jane Smith", role: "Creative Director" },
     { name: "Alice Johnson", role: "Marketing Manager" },
+    { name: "Jane Smith", role: "Creative Director" },
+    { name: "Alice Johnson", role: "Marketing Manager" },
   ];
 
   return (
