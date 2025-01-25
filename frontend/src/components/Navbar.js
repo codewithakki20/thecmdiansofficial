@@ -44,6 +44,7 @@ const Navbar = () => {
           <Link to="/events" className={getLinkClassName("/events")}>Events</Link> {/* New Link for Events */}
           <Link to="/help" className={getLinkClassName("/events")}>Help</Link>
             <Link to="/news" className={getLinkClassName("/events")}>News</Link>
+            <Link to="/memes" className={getLinkClassName("/events")}>Memes</Link>
           <Link to="/upload" className={getLinkClassName("/upload")}>Upload Your Image</Link>
         </nav>
       </div>
@@ -73,6 +74,7 @@ const Navbar = () => {
             <Link to="/events" className={getLinkClassName("/events")}>Events</Link> 
             <Link to="/help" className={getLinkClassName("/events")}>/Help</Link>
             <Link to="/news" className={getLinkClassName("/events")}>/News</Link>
+            <Link to="/memes" className={getLinkClassName("/events")}>/Memes</Link>
             <Link to="/upload" className={getLinkClassName("/upload")}>Upload Your Image</Link>
           </nav>
         </div>

@@ -16,6 +16,7 @@ import Register from './Pages/Registration';
 import Pass from './Pages/Pass';
 import HelpsPage from './Pages/HelpsPage';
 import NewsPage from './Pages/NewsPage';
+import MemesPage from './Pages/MemesPage';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/help" element={<HelpsPage />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/memes" element={<MemesPage />} />
            
             <Route path="/upload" element={<UploadImage />} />
             <Route path="/feedback" element={<Feedback />} />
