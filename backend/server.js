@@ -12,7 +12,7 @@ const app = express();
 
 // Middleware
 app.use(express.json()); // To parse incoming JSON requests
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true })); // Allow CORS from React app
+app.use(cors({ origin: ['http://localhost:3000', 'https://thecmdiansofficial.onrender.com'], credentials: true })); // Allow CORS from React app
 
 // Routes
 const imageRoutes = require('./routes/imageRoutes'); // Route for images
