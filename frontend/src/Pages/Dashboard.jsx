@@ -1,0 +1,38 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import DashSidebar from '../components/DashSidebar';
+import DashProfile from '../components/DashProfile';
+import DashUsers from '../components/DashUsers';
+import DashboardComp from '../components/DashboardComp';
+import DashUploadImage from '../components/DashUpImg';
+import DashUploadMemes from '../components/DashUpMemes';
+import DashUploadNews from '../components/DashUpNews';
+
+export default function Dashboard() {
+  const location = useLocation();
+  const [tab, setTab] = useState('');
+  
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tabFromUrl = urlParams.get('tab');
+    if (tabFromUrl) {
+      setTab(tabFromUrl);
+    }
+  }, [location.search]);
+
+  return (
+    <div className='min-h-screen flex flex-col md:flex-row'>
+      <div className='md:w-56'>
+        {/* Sidebar */}
+        <DashSidebar />
+      </div>
+      {/* Conditional rendering for specific tabs */}
+      {tab === 'profile' && <DashProfile />}
+      {tab === 'users' && <DashUsers />}
+      {tab === 'dash' && <DashboardComp />}
+      {tab === 'uploadimages' && <DashUploadImage />}
+      {tab === 'uploadmemes' && <DashUploadMemes />}
+      {tab === 'uploadnews' && <DashUploadNews />}
+    </div>
+  );
+}

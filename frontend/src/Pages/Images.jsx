@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import server from '../environment';
 
 const ImageList = () => {
   const [images, setImages] = useState([]);
@@ -16,7 +17,7 @@ const ImageList = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://thecmdiansofficial1.onrender.com/api/images?page=${page}`
+          `${server}/api/images?page=${page}`
         );
         if (response.data.length === 0) {
           setHasMore(false);
@@ -79,7 +80,7 @@ const ImageList = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `https://thecmdiansofficial1.onrender.com/api/images/${deleteId}`
+        `${server}/api/images/${deleteId}`
       );
       if (response.status === 200) {
         showAlert('Image deleted successfully', 'success');

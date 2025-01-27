@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import server from '../environment';
 
-const UploadImage = () => {
+const UploadMeme = () => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');
@@ -24,22 +24,22 @@ const UploadImage = () => {
     setSuccessMessage('');
 
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('memeImage', image);
     formData.append('title', title);
 
     try {
-      const response = await axios.post(`${server}/api/images/upload`, formData, {
+      const response = await axios.post(`${server}/api/memes/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      setSuccessMessage('Image uploaded successfully!');
-      console.log('Uploaded Image:', response.data);
+      setSuccessMessage('Meme uploaded successfully!');
+      console.log('Uploaded Meme:', response.data);
 
       setTimeout(() => {
-        navigate('/images');
+        navigate('/memes');
       }, 1000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Error uploading image.');
+      setError(err.response?.data?.message || 'Error uploading meme.');
       console.error('Upload Error:', err);
     } finally {
       setLoading(false);
@@ -71,11 +71,11 @@ const UploadImage = () => {
         {error && <div className="mb-4 text-red-500">{error}</div>}
         {successMessage && <div className="mb-4 text-green-500">{successMessage}</div>}
 
-        <h2 className="text-3xl font-bold mb-6 text-[#7C295D]">Upload Your Image</h2>
+        <h2 className="text-3xl font-bold mb-6 text-[#7C295D]">Upload Your Meme</h2>
         <form onSubmit={handleUpload}>
           <input
             type="text"
-            placeholder="Enter image title"
+            placeholder="Enter meme title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full px-4 py-2 mb-4 border border-gray-300 rounded"
@@ -95,7 +95,7 @@ const UploadImage = () => {
               loading ? 'bg-[#7C295D]' : 'bg-[#7C295D] hover:bg-purple-700'
             }`}
           >
-            {loading ? 'Uploading...' : 'Upload Image'}
+            {loading ? 'Uploading...' : 'Upload Meme'}
           </button>
         </form>
       </div>
@@ -103,4 +103,4 @@ const UploadImage = () => {
   );
 };
 
-export default UploadImage;
+export default UploadMeme;

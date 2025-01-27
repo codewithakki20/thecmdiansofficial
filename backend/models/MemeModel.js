@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 
-const imageSchema = new mongoose.Schema({
+const memeSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   url: {
     type: String,
-    required: true
+    required: true,
   },
   cloudinary_id: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 }, { timestamps: true });
 
-module.exports = mongoose.model('Image', imageSchema);
+module.exports = mongoose.model('Meme', memeSchema);

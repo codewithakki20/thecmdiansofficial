@@ -52,21 +52,15 @@ const HomePage = () => {
     navigate("/images");
   };
 
-  const organizers = [
-    { name: "John Doe", role: "Event Coordinator" },
-    { name: "Jane Smith", role: "Creative Director" },
-    { name: "Alice Johnson", role: "Marketing Manager" },
-    { name: "Jane Smith", role: "Creative Director" },
-    { name: "Alice Johnson", role: "Marketing Manager" },
-  ];
+  const handleAnnouncementPage = () => {
+    navigate("/announcement"); // Navigates to the Announcement Page
+  };
 
   return (
     <div className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] min-h-screen">
       {/* Hero Section */}
       <header className="text-white py-20 text-center">
-        <h1 className="text-6xl font-extrabold mb-4">
-          Welcome to The CMDians
-        </h1>
+        <h1 className="text-6xl font-extrabold mb-4">Welcome to The CMDians</h1>
         <p className="text-lg">
           आकाशगंगा EVENTs PLANNER FOR STUDENTS  HELP MEMES NEWS EVENTs
         </p>
@@ -80,33 +74,27 @@ const HomePage = () => {
 
       {/* Countdown Timer */}
       <section className="py-10 bg-white text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">
-          Next Event Starts In:
-        </h2>
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Next Event Starts In:</h2>
         <p className="text-2xl text-purple-600 font-semibold">{timeLeft}</p>
       </section>
 
-      {/* Organizers Section */}
-      <section className="py-16 px-6 bg-gradient-to-br from-indigo-500 to-indigo-400 text-white text-center">
-        <h2 className="text-4xl font-bold mb-4">Organized By</h2>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {organizers.map((organizer, index) => (
-            <div
-              key={index}
-              className="bg-white text-indigo-600 p-4 rounded shadow-lg font-medium hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-            >
-              <h3 className="text-xl font-bold">{organizer.name}</h3>
-              <p className="text-gray-700 text-sm mt-1">{organizer.role}</p>
-            </div>
-          ))}
-        </div>
+      {/* Announcement Section */}
+      <section className="py-16 px-6 bg-gradient-to-r from-[#F9A8D4] to-[#F3C7D9] text-white text-center">
+        <h2 className="text-4xl font-bold mb-4">Important Announcement</h2>
+        <p className="text-lg font-medium">
+          Stay tuned for our upcoming events and surprises! Join us for a thrilling year of fun and excitement at CMD College.
+        </p>
+        <button
+          onClick={handleAnnouncementPage} // Navigate to the Announcement Page
+          className="mt-8 px-6 py-3 bg-white text-[#7C295D] font-semibold rounded-lg shadow-lg hover:bg-gray-200 transition duration-300 transform hover:scale-105"
+        >
+          Learn More
+        </button>
       </section>
 
       {/* Photo Gallery Section */}
       <section className="py-16 px-8 bg-gray-100">
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-700">
-          Photo Gallery
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-700">Photo Gallery</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[{
               src: "/image1.jpeg",

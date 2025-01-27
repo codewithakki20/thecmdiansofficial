@@ -2,20 +2,20 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-tl from-[#7C295D] to-[#F3C7D9] py-16">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-extrabold text-white sm:text-6xl">
+          <h1 className="text-5xl font-bold text-white sm:text-6xl">
             CMD College
           </h1>
-          <p className="mt-4 text-lg text-gray-700 max-w-2xl mx-auto">
-            Discover the heart of education and exploration in Bilaspur, Chhattisgarh.
+          <p className="mt-4 text-lg text-gray-200 max-w-3xl mx-auto">
+            Explore education, innovation, and creativity at CMD College, Bilaspur.
           </p>
         </div>
 
         {/* College Details Section */}
-        <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-xl overflow-hidden transform transition-all duration-500 hover:scale-105">
           <div className="lg:w-1/2">
             <img
               src="college-campus.jpg" // Replace with your actual college campus image
@@ -28,13 +28,13 @@ const About = () => {
               About Our Institution
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              CMD College is a premier educational institution known for its commitment to providing quality education. With modern facilities and a dedicated faculty, our campus is a hub of learning and growth for students from diverse backgrounds.
+              CMD College is a premier institution committed to providing top-tier education with modern facilities and a talented faculty. We offer an immersive environment where students thrive academically and personally.
             </p>
           </div>
         </div>
 
         {/* CMDians Section */}
-        <div className="flex flex-col lg:flex-row bg-white shadow-lg rounded-lg overflow-hidden mt-8">
+        <div className="flex flex-col lg:flex-row bg-[#F9FAFB] shadow-lg rounded-xl overflow-hidden mt-12 transform transition-all duration-500 hover:scale-105">
           <div className="lg:w-1/2">
             <img
               src="./The CMDians.jpeg" // Replace with actual CMDians logo image
@@ -44,16 +44,16 @@ const About = () => {
           </div>
           <div className="lg:w-1/2 p-8">
             <h2 className="text-3xl font-semibold text-[#7C295D] mb-4">
-               The CMDians
+              The CMDians
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              The CMDians is your go-to event planner for students. Whether you're looking for the latest student events, fun activities, or engaging news, we've got it all. Our team is dedicated to bringing you exciting events, valuable assistance, and an unforgettable student experience.
+              The CMDians is your ultimate event planner for students. From student events to news and activities, our team ensures an unforgettable experience. Join us to stay connected and engaged with everything CMD College offers.
             </p>
           </div>
         </div>
 
         {/* Student Life Section */}
-        <div className="flex flex-col lg:flex-row-reverse bg-[#F3E6F8] shadow-lg rounded-lg overflow-hidden mt-8">
+        <div className="flex flex-col lg:flex-row-reverse bg-[#E8D4E8] shadow-lg rounded-xl overflow-hidden mt-12 transform transition-all duration-500 hover:scale-105">
           <div className="lg:w-1/2">
             <img
               src="/image1.jpeg" // Replace with an image representing student life
@@ -66,7 +66,7 @@ const About = () => {
               CMD College Student Life
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Life at CMD College is an experience like no other. From vibrant campus events to collaborative student organizations, every day offers a chance to grow, engage, and create lifelong memories. Whether it's sports, cultural festivals, or academic clubs, there's something for every student to get involved in.
+              Life at CMD College is about building memories. With vibrant events, academic clubs, and sports activities, students can grow, make new friends, and enjoy a fulfilling life both inside and outside the classroom.
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@ const About = () => {
         {/* Closing Section */}
         <div className="text-center mt-12">
           <p className="text-lg text-gray-700 mb-6">
-            At CMD College, we focus on more than just academics. Join The CMDians for a memorable student experience with exciting events and much more!
+            At CMD College, we nurture not only intellect but also the spirit of togetherness. Be a part of The CMDians for an enriching and memorable journey!
           </p>
         </div>
       </div>

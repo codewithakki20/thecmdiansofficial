@@ -1,82 +1,77 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import server from '../environment';
 
 const EventPage = () => {
-  const [registering, setRegistering] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const generateToken = () => {
-    // Create a unique token for the event (could be a random string or ID)
-    const token = Math.random().toString(36).substring(2, 15);
-    return token;
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(`${server}/api/events`);
+        console.log('API response:', response.data); // Log the response data
+        // Ensure the response data is an array
+        if (Array.isArray(response.data.data)) {
+          setEvents(response.data.data);
+        } else {
+          setError('Unexpected response format');
+        }
+        setLoading(false);
+      } catch (error) {
+        setError('Error fetching events');
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const handleViewDetails = (eventId) => {
+    navigate(`/events/${eventId}`);
   };
 
-  const handleRegister = (eventToken) => {
-    setRegistering(true);
-    setTimeout(() => {
-      setRegistering(false);
-      // Pass the generated event token to the registration page
-      navigate(`/register/${eventToken}`);
-    }, 2000);
+  const handleBooking = (eventId) => {
+    navigate(`/book/${eventId}`);
   };
 
-  const events = [
-    {
-      title: "CMD College Annual Picnic",
-      description: "A fun-filled day with games, food, and activities for all.",
-      image: "./image1.jpeg",
-      location: "CMD College Campus, City",
-      entryFees: "$30",
-    },
-    {
-      title: "Tech Conference 2025",
-      description: "A day of insightful talks from industry leaders about tech innovation.",
-      image: "./image2.jpeg",
-      location: "Tech Auditorium, Downtown City",
-      entryFees: "$100",
-    },
-    {
-      title: "CMDians Music Fest",
-      description: "A live music event featuring local bands and performers.",
-      image: "./image3.jpeg",
-      location: "CMD College Grounds, City",
-      entryFees: "$20",
-    },
-  ];
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] text-white p-8">
-      {events.map((event, index) => (
-        <div key={index} className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 mb-8">
-          <div className="flex flex-col items-center mb-8">
-            <h1 className="text-4xl font-bold text-center text-[#7C295D] mb-4">{event.title}</h1>
-            <div
-              className="w-full h-80 bg-cover bg-center rounded-lg"
-              style={{ backgroundImage: `url(${event.image})` }}
-            ></div>
-          </div>
-
-          <div className="space-y-6">
-            <p className="text-lg text-gray-700">{event.description}</p>
-            <div className="flex justify-between text-lg text-gray-700">
-              <div><strong>Location:</strong> {event.location}</div>
-              <div><strong>Entry Fees:</strong> {event.entryFees}</div>
+    <div className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <h1 className="text-3xl font-semibold text-center mb-6 text-white">Upcoming Events</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.isArray(events) && events.map((event) => (
+            <div key={event._id} className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <img src={event.image.url} alt={event.title} className="w-full h-48 object-cover rounded-lg mb-4" />
+              <h2 className="text-xl font-semibold text-gray-800">{event.title}</h2>
+              <p className="text-gray-600 my-2">{event.location}</p>
+              <p className="text-gray-700 mb-4">{event.description.substring(0, 100)}...</p>
+              <p className="text-gray-700 mb-4"><strong>Price:</strong> ${event.price}</p>
+              <p className="text-gray-700 mb-4"><strong>Date:</strong> {new Date(event.date).toLocaleDateString()}</p>
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={() => handleViewDetails(event._id)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                >
+                  View Details
+                </button>
+                <button
+                  onClick={() => handleBooking(event._id)}
+                  className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors ml-2"
+                >
+                  Book Now
+                </button>
+              </div>
             </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => handleRegister(generateToken())}
-              className={`px-6 py-3 text-white font-bold rounded-lg transition-all duration-300 ${
-                registering ? "bg-gray-400" : "bg-[#7C295D] hover:bg-[#5e1f48]"
-              }`}
-              disabled={registering}
-            >
-              {registering ? "Registering..." : "Register Now"}
-            </button>
-          </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };

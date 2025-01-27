@@ -1,105 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { QRCodeSVG } from "qrcode.react"; // Import QRCode library
+import React from "react";
 
-const PassPage = () => {
-  const { paymentToken } = useParams(); // Get token from the route parameter
-  const [token] = useState(paymentToken || ''); // Store the token, no need for setToken
-  const [registrationData, setRegistrationData] = useState(null);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // If there's no token, redirect to home
-    if (!token) {
-      navigate('/');
-      return;
-    }
-
-    // Retrieve registration data from localStorage
-    const storedData = JSON.parse(localStorage.getItem("registrationData")) || {};
-    setRegistrationData(storedData);
-  }, [token, navigate]);
-
-  const eventDetails = {
-    title: "CMD College Annual Picnic",
-    location: "CMD College Campus, City",
-    amount: "$30",
-    image: "/image2.jpeg", // Example event image path
-  };
-
-  const handleDownloadPass = () => {
-    const passContent = `
-      Event Pass
-      ---------------------
-      Event Title: ${eventDetails.title}
-      Location: ${eventDetails.location}
-      Amount: ${eventDetails.amount}
-
-      Name: ${registrationData?.name || 'John Doe'}
-      Father's Name: ${registrationData?.fatherName || 'Mr. Doe'}
-      Mobile Number: ${registrationData?.mobileNumber || '1234567890'}
-      Token: ${token}
-    `;
-
-    const blob = new Blob([passContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+const Ticket = () => {
+  const downloadTicket = () => {
     const link = document.createElement("a");
-    link.href = url;
-    link.download = "EventPass.txt";
+    link.href = "https://i.ibb.co/W3cK42J/image-1.png";  // Replace with your ticket image or file URL
+    link.download = "event_ticket.png";
     link.click();
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] text-white p-8">
-      <div className="max-w-lg mx-auto bg-white text-gray-900 p-8 rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-[#7C295D] mb-4">Your Event Pass</h1>
+    <div className="relative flex flex-col md:flex-row border border-gray-300 m-4 rounded-lg overflow-hidden shadow-lg bg-cover bg-center" style={{ backgroundImage: "url('https://your-image-url.com/path-to-image.jpg')" }}>
+      {/* Background Blur Effect */}
+      <div className="absolute inset-0 bg-black opacity-40 backdrop-blur-lg z-0"></div>
 
-        {/* Event Image */}
+      {/* Left side (Image Section) */}
+      <div className="relative md:w-1/3 border-b md:border-b-0 md:border-r border-gray-300 p-6 z-10">
+        <div className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white border-2 border-gray-300 w-8 h-8 rotate-45 rounded-full"></div>
+        <img
+          src="https://i.ibb.co/W3cK42J/image-1.png"
+          alt="Event"
+          className="w-full h-64 object-cover rounded-md"
+        />
+      </div>
+
+      {/* Center Section */}
+      <div className="p-6 flex-1 z-10">
+        {/* Event Name */}
         <div className="mb-6">
+          <span className="text-primary text-xs uppercase font-medium">Your ticket for</span>
+          <h2 className="text-2xl font-semibold mt-1">The event name</h2>
+        </div>
+
+        {/* Date and Location Information */}
+        <div className="flex mb-6">
+          <div className="w-1/2 pr-4">
+            <span className="text-gray-600 text-xs uppercase font-semibold">Date and time</span>
+            <span className="block text-lg font-medium">Thursday, May 14 2020</span>
+            <span className="block text-sm text-gray-500">7:00 am to 9:00 pm (GMT+1)</span>
+          </div>
+          <div className="w-1/2 pl-4">
+            <span className="text-gray-600 text-xs uppercase font-semibold">Location</span>
+            <span className="block text-lg font-medium">Location name</span>
+            <span className="block text-sm text-gray-500">Location complete address, Town, COUNTRY</span>
+          </div>
+        </div>
+
+        {/* Ticket Type and Order Info */}
+        <div className="flex">
+          <div className="w-1/2 pr-4">
+            <span className="text-gray-600 text-xs uppercase font-semibold">Ticket type</span>
+            <span className="block text-lg font-medium">Event category</span>
+          </div>
+          <div className="w-1/2 pl-4">
+            <span className="text-gray-600 text-xs uppercase font-semibold">Order info</span>
+            <span className="block text-lg font-medium">Order #0123456789. Ordered By John DOE</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side (QR Code and Logo) */}
+      <div className="relative bg-primary text-white p-6 md:w-1/3 z-10">
+        <div className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white border-2 border-gray-300 w-8 h-8 rotate-45 rounded-full"></div>
+        <div className="mb-4">
           <img
-            src={eventDetails.image}
-            alt={eventDetails.title}
-            className="w-full h-48 object-cover rounded-lg"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Qrcode_wikipedia_fr_v2clean.png"
+            alt="QR Code"
+            className="w-32 h-32 object-cover mx-auto"
           />
         </div>
-
-        {/* Event & User Details */}
-        <div className="space-y-4 text-gray-700">
-          <div><strong>Event Title:</strong> {eventDetails.title}</div>
-          <div><strong>Location:</strong> {eventDetails.location}</div>
-          <div><strong>Amount:</strong> {eventDetails.amount}</div>
-          <div><strong>Name:</strong> {registrationData?.name || 'John Doe'}</div>
-          <div><strong>Father's Name:</strong> {registrationData?.fatherName || 'Mr. Doe'}</div>
-          <div><strong>Mobile Number:</strong> {registrationData?.mobileNumber || '1234567890'}</div>
-          <div><strong>Token:</strong> {token}</div>
+        <div className="mt-6">
+          <img
+            src="https://qidoon.com/assets/img/logo.svg"
+            alt="Logo"
+            className="mx-auto opacity-50 invert"
+          />
         </div>
+      </div>
 
-        {/* QR Code */}
-        <div className="text-center mt-6">
-          <QRCodeSVG value={token} size={128} />
-        </div>
-
-        {/* Buttons */}
-        <div className="mt-8 text-center space-y-4">
-          <button
-            onClick={handleDownloadPass}
-            className="px-6 py-3 bg-[#7C295D] text-white font-bold rounded-lg"
-          >
-            Download Pass
-          </button>
-
-          {/* Navigate to Home Button */}
-          <button
-            onClick={() => navigate("/")}
-            className="px-6 py-3 bg-gray-500 text-white font-bold rounded-lg"
-          >
-            Go to Home
-          </button>
-        </div>
+      {/* Download Button without Image */}
+      <div className="w-full text-center mt-6 md:mt-8 z-10">
+        <button 
+          onClick={downloadTicket}
+          className="bg-blue-500 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
+        >
+          Download Ticket
+        </button>
       </div>
     </div>
   );
 };
 
-export default PassPage;
+export default Ticket;
