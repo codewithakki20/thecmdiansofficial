@@ -69,7 +69,7 @@ const HomePage = () => {
       <header className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] text-white py-16 text-center">
         <h1 className="text-5xl font-bold mb-4 drop-shadow-md">Welcome to The CMDians</h1>
         <p className="text-lg max-w-2xl mx-auto font-medium drop-shadow-sm">
-          आकाशगंगा | ENTs PLANNER FOR STUDENTS | HELP | MEMES | NEWS
+          आकाशगंगा | EVENTs PLANNER FOR STUDENTS | HELP | MEMES | NEWS
         </p>
         <button
           onClick={handleAddFeedback}

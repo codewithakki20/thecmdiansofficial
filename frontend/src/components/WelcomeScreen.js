@@ -84,7 +84,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 bg-[#7C295D] text-white"
+          className="fixed inset-0 bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] text-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit="exit"
@@ -112,7 +112,7 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
                     data-aos="fade-left"
                     data-aos-delay="200"
                   >
-                    A day of fun and adventure awaits you!
+                    EVENTs PLANNER FOR STUDENTS
                   </span>
                 </h1>
               </motion.div>
