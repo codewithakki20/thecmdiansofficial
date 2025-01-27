@@ -85,13 +85,6 @@ const Ticket = ({ eventName, date, time, location, category, orderId, orderedBy 
             className="w-32 mx-auto p-1 bg-white"
           />
         </div>
-        <div>
-          <img
-            src="https://qidoon.com/assets/img/logo.svg"
-            alt="Logo"
-            className="block mx-auto opacity-60 filter invert"
-          />
-        </div>
       </div>
     </div>
   );

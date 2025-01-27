@@ -7,7 +7,7 @@ const AnnouncementPage = () => {
   const announcements = [
     {
       title: "Spring Picnic 2025 Announcement",
-      date: "February 10, 2025",
+      date: "February 25, 2025",
       content: "Join us for the Spring Picnic 2025! Mark your calendars for an unforgettable experience at Green Park.",
     },
     {

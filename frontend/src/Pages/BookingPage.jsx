@@ -79,35 +79,37 @@ const BookingPage = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6">
-      <h1 className="text-3xl font-semibold text-center mb-6">Book Tickets for {event.title}</h1>
-      <img src={event.image.url} alt={event.title} className="w-full h-72 object-cover rounded-lg mb-6" />
-      <p className="text-lg text-gray-600 mb-4">{event.description}</p>
-      <p className="text-xl text-gray-700 mb-4">Location: {event.location}</p>
-      <p className="text-xl text-gray-700 mb-6">Price per ticket: ${event.price}</p>
+    <div className="bg-gradient-to-r from-[#7C295D] to-[#F3C7D9] min-h-screen flex items-center justify-center px-4">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <h1 className="text-3xl font-semibold text-center mb-6">Book Tickets for {event.title}</h1>
+        <img src={event.image.url} alt={event.title} className="w-full h-72 object-cover rounded-lg mb-6" />
+        <p className="text-lg text-gray-600 mb-4">{event.description}</p>
+        <p className="text-xl text-gray-700 mb-4">Location: {event.location}</p>
+        <p className="text-xl text-gray-700 mb-6">Price per ticket: ${event.price}</p>
 
-      <form onSubmit={handleBooking}>
-        <div className="mb-4">
-          <label htmlFor="ticketCount" className="block text-lg font-medium text-gray-700">Number of Tickets</label>
-          <input
-            type="number"
-            id="ticketCount"
-            name="ticketCount"
-            value={ticketCount}
-            onChange={handleTicketCountChange}
-            min="1"
-            max="10"
-            className="w-full p-2 mt-2 border border-gray-300 rounded-md"
-          />
-        </div>
+        <form onSubmit={handleBooking}>
+          <div className="mb-4">
+            <label htmlFor="ticketCount" className="block text-lg font-medium text-gray-700">Number of Tickets</label>
+            <input
+              type="number"
+              id="ticketCount"
+              name="ticketCount"
+              value={ticketCount}
+              onChange={handleTicketCountChange}
+              min="1"
+              max="10"
+              className="w-full p-2 mt-2 border border-gray-300 rounded-md"
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-colors"
-        >
-          {loading ? 'Booking...' : 'Confirm Booking'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-colors w-full"
+          >
+            {loading ? 'Booking...' : 'Confirm Booking'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
